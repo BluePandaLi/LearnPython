@@ -5,23 +5,7 @@
 # @Site    : pandasharp.com
 # @File    : uniTest.py
 import unittest
-
-class Dict(dict):
-
-    def __init__(self, **kw):
-        super(Dict, self).__init__(**kw)
-
-    def __getattr__(self, key):
-        try:
-            return self[key]
-        except KeyError:
-            raise AttributeError(r"'Dict' object has no attribute '%s'" % key)
-
-    def __setattr__(self, key, value):
-        self[key] = value
-
-    if __name__ == '__main__':
-        unittest.main()
+from mydict import Dict
 
 class TestDict(unittest.TestCase):
 
@@ -58,5 +42,10 @@ class TestDict(unittest.TestCase):
         d = Dict()
         with self.assertRaises(AttributeError):
             value = d.empty
-d = Dict(a=1, b=2)
-print d['a']
+
+#https://stackoverflow.com/questions/17447268/python-unittest-not-running
+#Then unindent that if to the top level (no spaces before it). Otherwise it is part of the code block of the class definition and will be executed before the class is finished (thus no unit tests have been created at this point).
+if __name__ == '__main__':
+        unittest.main()
+
+#python -m unittest mydict_test
